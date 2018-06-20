@@ -27,7 +27,7 @@ services:
         - augur-ui-integration-test
     depends_on:
       - augur-node-service
-    entrypoint: /app/wait-for-url.sh http://augur-node-service:9001/status/sync yarn dev
+    entrypoint: /app/wait-for-url.sh http://augur-node-service:9001/status/sync yarn start
 
   test-runner:
     image: augur-ui-integration-test
@@ -41,6 +41,6 @@ services:
       - AUGUR_URL=http://augur-ui:8080/
     cap_add:
       - SYS_ADMIN
-    entrypoint: /app/wait-for-url.sh http://augur-ui:8080/ npx jest integration/dismiss-approval.test.ts
+    entrypoint: /app/wait-for-url.sh http://augur-ui:8080/ npx jest
 
 
