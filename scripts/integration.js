@@ -37,7 +37,7 @@ const cb = async (filepath) => {
       colors.error(`${filepath}:\t\t\tFailed!\n\n`)
     );
 
-    process.stderr.write(e);
+    console.error(e);
   }
 
   readline.clearLine();
