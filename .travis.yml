@@ -33,6 +33,10 @@ script:
   - yarn build --dev
 jobs:
   include:
+  - stage: Integration tests
+    script:
+      - yarn docker:integration:build
+      - yarn docker:integration:all
   - stage: Deploy to stable
     if: branch = stable
     node_js: '8'
