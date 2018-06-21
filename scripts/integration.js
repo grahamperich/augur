@@ -1,6 +1,6 @@
 const shell = require('shelljs');
 const colors = require('./common/colors');
-
+const readline = require('readline');
 
 process.env.NODE_ENV = process.env.BABEL_ENV = 'integration';
 
@@ -31,8 +31,8 @@ const cb = async (filepath) => {
   try {
     const { stdout, stderr } = await exec(`npm run docker:integration ${filepath}`)
   } catch (e) {
-    process.stdout.clearLine();
-    process.stdout.cursorTo(0);
+    readline.clearLine();
+    readline.cursorTo(0);
     process.stdout.write(
       colors.error(`${filepath}:\t\t\tFailed!\n\n`)
     );
@@ -40,8 +40,8 @@ const cb = async (filepath) => {
     process.stderr.write(e);
   }
 
-  process.stdout.clearLine();
-  process.stdout.cursorTo(0);
+  readline.clearLine();
+  readline.cursorTo(0);
   process.stdout.write(
     colors.dim(`${filepath}:\t\t\tPassed!\n`)
   );
