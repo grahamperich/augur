@@ -1,6 +1,6 @@
 import "jest-environment-puppeteer";
-import {UnlockedAccounts} from "./constants/accounts";
-import {dismissDisclaimerModal} from "./helpers/dismiss-disclaimer-modal";
+import { UnlockedAccounts } from "./constants/accounts";
+import { dismissDisclaimerModal } from "./helpers/dismiss-disclaimer-modal";
 
 const url = `${process.env.AUGUR_URL}`;
 
@@ -10,9 +10,13 @@ describe("Trading", () => {
   beforeAll(async () => {
     await page.goto(url);
 
-    const marketId = await page.evaluate((marketDescription) => window.integrationHelpers.findMarketId(marketDescription), 'Will the Larsen B ice shelf collapse by the end of November 2019?');
+    const marketId = await page.evaluate(
+      marketDescription =>
+        window.integrationHelpers.findMarketId(marketDescription),
+      "Will the Larsen B ice shelf collapse by the end of November 2019?"
+    );
 
-    await page.goto(url.concat('/#/market?id=' + marketId));
+    await page.goto(url.concat("/#/market?id=" + marketId));
 
     // No idea what a 'typical' desktop resolution would be for our users.
     await page.setViewport({
@@ -39,9 +43,12 @@ describe("Trading", () => {
       text: "Confirm"
     });
 
-    page.on('console', msg => console.log('PAGE LOG:', msg.text()));
+    page.on("console", msg => console.log("PAGE LOG:", msg.text()));
 
-    await page.evaluate((account) => window.integrationHelpers.updateAccountAddress(account), UnlockedAccounts.SECONDARY_ACCOUNT);
+    await page.evaluate(
+      account => window.integrationHelpers.updateAccountAddress(account),
+      UnlockedAccounts.SECONDARY_ACCOUNT
+    );
     await expect(page).toClick("button", {
       text: "Buy",
       timeout: 2000
