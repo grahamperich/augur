@@ -41,7 +41,7 @@ jobs:
     script:
       - yarn
       - yarn docker:integration:build
-      - yarn docker:integration:all
+      - travis_wait 60 yarn docker:integration:all
   - stage: Deploy to stable
     if: branch = stable
     node_js: '8'
